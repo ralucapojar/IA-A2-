@@ -1,0 +1,88 @@
+   Elementul de bază al unui document RDF este tripletul. Un triplet este o propoziŃie ce are un
+subiect, predicat şi un obiect (proprietate). Subiectul şi predicatul sunt resurse identificate prin
+URI-uri, iar obiectul poate fi o resursă sau o valoare efectivă.
+   Cu ajutorul RDF pot fi descrise mai multe tipuri de resurse predefinite dar pot fi definite şi
+tipuri noi de resurse cu ajutorul unei extensii numite RDF Schema. RDF Schema (RDFS) permite
+definirea unor clase, instanŃe şi proprietăŃi utilizând sintaxa RDF. De asemenea, permite definirea
+unor relaŃii între resurse prin oferirea posibilităŃii de a defini subclase, subproprietăŃi, precum şi
+domeniu şi co-domeniu pentru proprietăŃi.
+      OWL (Web Ontology Language - McGuinness 2004, Patel-Schneider 2004) este un limbaj
+conceput pentru a defini ontologii. Este un limbaj care extinde RDF, permiŃând folosirea unor
+instrumente de inferenŃă pe datele din ontologie. Are trei sub-limbaje distincte OWL Lite, OWL
+DL şi OWL Full ce diferă prin ceea ce pot exprima.
+    OWL Lite suportă restricŃii de cardinalitate (0 sau 1) precum şi restricŃii de tip
+„AllValuesFrom” şi „SomeValuesFrom”. RestricŃiile de cardinalitate specifică numărul de
+proprietăŃi de un anumit tip pe care le poate avea o clasă. RestricŃiile de tip „SomeValuesFrom” şi
+„AllValuesFrom” specifică faptul că unele sau toate valorile proprietăŃii pe care se aplică
+restricŃia au tipul specificat. De asemenea, se poate specifica faptul că unele clase şi proprietăŃi
+sunt echivalente cu alte clase şi proprietăŃi, ceea ce poate fi foarte util pentru a arăta că unele
+concepte cu nume diferite din ontologii diferite reprezintă de fapt acelaşi lucru. Tot în OWL Lite
+se poate specifica faptul că o proprietate poate fi funcŃională (ceea ce înseamnă că un element din
+domeniu poate fi asociat printr-o proprietate funcŃională unui singur element din co-domeniu),
+simetrică, tranzitivă sau inversă. 
+     OWL DL (Description Logic) este un limbaj mai avansat, bazat pe un subset decidabil al
+logicii cu predicate. OWL DL permite definirea unor relaŃii de disjuncŃie între clase. El permite şi
+definirea de clase prin reuniune, diferenŃă şi intersecŃie de clase. Permite şi definirea unor
+restricŃii de cardinalitate mai avansate, astfel că orice număr nenegativ poate fi specificat în
+cadrul restricŃiei. Pe o ontologie OWL DL, motoare de raŃionament ca de exemplu Racer (Racer
+2007), Fact++ (Fact 2007), Kaon2 (Kaon 2007) sau Pellet (Pellet 2007) pot verifica consistenŃa
+modelului sau poate să realizeze clasificare automată.
+    OWL Full permite definirea mai multor tipuri de constrângeri decât OWL DL dar fără a oferi
+garanŃii computaŃionale. În momentul actual, cele mai multe aplicaŃii şi instrumente de dezvoltare
+sunt construite pentru OWL DL.
+    Următorul fragment de cod OWL DL specifică descrierea unei clase „Justificare”, modelată
+conform modelului din teoria argumentării a lui Toulmin (Soukoup şi Titsworth 2007). Clasei
+Justificare i se specifică faptul că elementele sale sunt disjuncte cu cele ale claselor „Date”,
+„Suport”, „AfirmaŃie”, „ForŃă” şi „Limitare”. De asemenea, sunt definite restricŃii de cardinalitate
+în sensul că o justificare trebuie să aibă cel puŃin o dată pe care să se bazeze şi restricŃii de codomeniu
+pentru proprietatea „justificare_pt_date”.
+ 
+<owl:Class rdf:about="#Justificare">
+ <owl:disjointWith>
+ <owl:Class rdf:about="#Date"/>
+ </owl:disjointWith>
+ <rdfs:subClassOf>
+ <owl:Restriction>
+ <owl:onProperty>
+ <owl:ObjectProperty rdf:ID="justificare_pt_date"/>
+ </owl:onProperty>
+ <owl:allValuesFrom>
+ <owl:Class rdf:about="#Date"/>
+ </owl:allValuesFrom>
+ </owl:Restriction>
+ </rdfs:subClassOf>
+ <owl:disjointWith rdf:resource="#Suport"/>
+ <owl:disjointWith>
+ <owl:Class rdf:ID="Limitare"/>
+ </owl:disjointWith>
+ <owl:disjointWith rdf:resource="#AfirmaŃie"/>
+ <rdfs:subClassOf rdf:resource="#Tip_argument"/>
+ <owl:disjointWith>
+ <owl:Class rdf:ID="ForŃa"/>
+ </owl:disjointWith>
+ <rdfs:subClassOf>
+ <owl:Restriction>
+ <owl:onProperty>
+ <owl:ObjectProperty rdf:about="#justificare_pt_date"/>
+ </owl:onProperty>
+ <owl:minCardinality
+rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+ >1</owl:minCardinality>
+ </owl:Restriction>
+ </rdfs:subClassOf>
+ </owl:Class>
+
+        Protege este un editor de ontologii şi mai ales o platformă pentru dezvoltarea aplicaŃiilor
+bazate pe cunoştinŃe. Este dezvoltat în Java şi este open-source. Un alt avantaj remarcabil al
+acestei aplicaŃii este că are o structura la care se pot adăuga foarte uşor plugin-uri ceea ce permite
+să fie extins pentru a satisface orice necesitate.
+Protege are suport pentru RDF şi mai oferă un format propriu pentru stocarea informaŃiilor,
+interfaŃa grafică de construcŃie a ontologiilor nefiind diferită pentru vreuna din cele două opŃiuni.
+Această interfată grafică originală permite crearea de clase, proprietăŃi şi instanŃe. De asemenea,
+permite specificarea relaŃiilor de tip moştenire între clase. Se pot defini relaŃii prin posibilitatea de
+a defini domeniul şi co-domeniul proprietăŃilor. O proprietate ce are ca şi co-domeniu o altă clasă
+constituie o relaŃie. Adăugând plugin-uri la Protege, capacităŃile pe care le are devin mult
+mai puternice. Cel mai important plugin este probabil cel care permite accesul la mecanismele
+limbajului OWL. Acest plugin permite atât crearea, editarea, salvarea şi importarea de ontologii
+în format OWL cât şi lucrul cu baze de date prin intermediul unui driver JDBC în care să fie
+stocate ontologiile. 
