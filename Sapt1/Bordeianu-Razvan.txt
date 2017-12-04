@@ -1,7 +1,8 @@
 ONTOLOGIE = Latură a materialismului dialectic care se referă la determinările și la structura realității obiective
 Ontologia = teorie privitoare la existență
 
-O ontologie reprezintă conceptualizarea unui domeniu de cunoaștere într-un format destinat a fi procesat de calculator, format modelând entități, atribute, relații și axiome.
+O ontologie reprezintă conceptualizarea unui domeniu de cunoaștere într-un format destinat a fi procesat de calculator, 
+format modelând entități, atribute, relații și axiome.
  
 După scopul & contextul utilizării:
 	ontologii specializate
